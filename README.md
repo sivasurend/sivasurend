@@ -1,0 +1,5 @@
+- 👋 Hi, I’m @sivasurend
+- 👀 I’m interested in building products that solve real customer problems
+- 🌱 I’m currently learning langchain
+- 💞️ I’m looking to collaborate on langchain, vectorDB
+- 📫 How to reach me - https://twitter.com/siva_1gc
