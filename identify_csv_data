@@ -1,0 +1,21 @@
+import pandas as pd
+
+df = pd.read_csv('/Users/sivas/Desktop/Learning/Langchain/Untitled Folder/vc_sheet.csv')
+
+from langchain.agents import create_csv_agent
+from langchain.llms import OpenAI
+
+agent = create_csv_agent(OpenAI(temperature=0,openai_api_key=openai_api_key), 
+                         '/Users/sivas/Desktop/Learning/Langchain/Untitled Folder/vc_sheet.csv'
+                        )
+
+agent.run("""Select only the first 10 rows and do the below task.
+Which domain, industry and function the above data belongs to? Please answer in one word max for each, in JSON 
+format along with your confidence score for each classification without nested keys. JSON keys can be domain, 
+function, industry, confidence_domain, confidence_industry, confidence_function. Please do not write any other 
+output.
+""")
+
+Answer
+
+'{"domain": "technology", "industry": "software, SaaS", "function": "development", "confidence_domain": 1.0, "confidence_industry": 1.0, "confidence_function": 1.0}'
