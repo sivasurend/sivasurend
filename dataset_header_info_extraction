@@ -1,0 +1,49 @@
+import pandas as pd
+
+df = pd.read_csv('/Users/sivas/Desktop/Learning/Langchain/Untitled Folder/vc_sheet.csv')
+
+headers = df.columns.tolist()
+header_str = ', '.join(headers)
+
+
+response = openai.ChatCompletion.create(
+    model='gpt-3.5-turbo-0613',
+    messages=[
+        {"role": "system", "content": f"""
+        Understand that you are in the role of a data scientist, working closely with the CEO and board members of a company. 
+        Your task involves providing them with high-quality mathematical and statistical analyses.
+        
+        Analyze the first 10 rows of the dataset, including the headers, of the provided dataset. Identify the industry and 
+        the specific function this dataset is likely associated with based on its content.
+        
+        dataset: {df}
+        headers: {header_str}
+    
+        Make an educated guess about the type of analysis or analytical category the user might be planning 
+        to undertake using this dataset.
+
+        """
+        },
+        {"role": "user", "content": """
+        For each column header in the dataset, generate atleast 10 alternative names that are commonly used. In 
+        addition, provide a concise description for each header.
+        
+        Present the results of your analysis in JSON format. Your output should contain keys such as'header', 
+        'alternate header names', and 'header description'.
+
+        Avoid producing any output other than the JSON-formatted results, and ensure that your JSON output does not 
+        contain nested keys.
+        """},
+    ],
+    temperature=0,
+)
+
+output = response["choices"][0]["message"]["content"]
+output
+
+-------------------------------------------------------------------
+
+Answer
+
+'{\n  "header": "Organization Name",\n  "alternate header names": [\n    "Company Name",\n    "Business Name",\n    "Firm Name",\n    "Entity Name",\n    "Corporation Name",\n    "Enterprise Name",\n    "Brand Name",\n    "Trade Name",\n    "Label",\n    "Title"\n  ],\n  "header description": "The name of the organization or company"\n},\n{\n  "header": "Industry",\n  "alternate header names": [\n    "Sector",\n    "Field",\n    "Domain",\n    "Business Area",\n    "Market",\n    "Specialization",\n    "Line of Business",\n    "Vertical",\n    "Segment",\n    "Category"\n  ],\n  "header description": "The industry or industries the organization operates in"\n},\n{\n  "header": "Location",\n  "alternate header names": [\n    "City",\n    "Region",\n    "State",\n    "Province",\n    "Country",\n    "Geographic Location",\n    "Place",\n    "Site",\n    "Position",\n    "Address"\n  ],\n  "header description": "The location of the organization"\n},\n{\n  "header": "Rank (crunch Base)",\n  "alternate header names": [\n    "Crunch Base Rank",\n    "Position",\n    "Standing",\n    "Order",\n    "Hierarchy",\n    "Level",\n    "Grade",\n    "Rating",\n    "Score",\n    "Ranking"\n  ],\n  "header description": "The rank or position of the organization in Crunch Base"\n},\n{\n  "header": "Estimated Revenue Range",\n  "alternate header names": [\n    "Revenue Estimate",\n    "Income Range",\n    "Earnings Range",\n    "Financial Range",\n    "Profit Range",\n    "Sales Range",\n    "Turnover Range",\n    "Gross Range",\n    "Net Range",\n    "Monetary Range"\n  ],\n  "header description": "The estimated range of revenue for the organization"\n},\n{\n  "header": "Founded Date",\n  "alternate header names": [\n    "Established Date",\n    "Inception Date",\n    "Creation Date",\n    "Origin Date",\n    "Start Date",\n    "Birth Date",\n    "Commencement Date",\n    "Formation Date",\n    "Initiation Date",\n    "Originating Date"\n  ],\n  "header description": "The date when the organization was founded or established"\n},\n{\n  "header": "Number of Founders",\n  "alternate header names": [\n    "Founders Count",\n    "Co-Founders Count",\n    "Originators Count",\n    "Creators Count",\n    "Initiators Count",\n    "Pioneers Count",\n    "Innovators Count",\n    "Entrepreneurs Count",\n    "Starters Count",\n    "Builders Count"\n  ],\n  "header description": "The number of founders associated with the organization"\n},\n{\n  "header": "Number of Employees",\n  "alternate header names": [\n    "Employee Count",\n    "Staff Count",\n    "Workforce Count",\n    "Personnel Count",\n    "Labor Force Count",\n    "Team Count",\n    "Crew Count",\n    "Workforce Size",\n    "Personnel Size",\n    "Labor Force Size"\n  ],\n  "header description": "The number of employees working for the organization"\n},\n{\n  "header": "Number of Funding Rounds",\n  "alternate header names": [\n    "Funding Rounds Count",\n    "Investment Rounds Count",\n    "Capital Rounds Count",\n    "Financing Rounds Count",\n    "Fundraising Rounds Count",\n    "Venture Rounds Count",\n    "Seed Rounds Count",\n    "Angel Rounds Count",\n    "Series Rounds Count",\n    "Round Count"\n  ],\n  "header description": "The number of funding rounds the organization has gone through"\n},\n{\n  "header": "Funding Status",\n  "alternate header names": [\n    "Investment Status",\n    "Capital Status",\n    "Financing Status",\n    "Fundraising Status",\n    "Venture Status",\n    "Seed Status",\n    "Angel Status",\n    "Series Status",\n    "Status",\n    "Condition"\n  ],\n  "header description": "The status of the organization\'s funding"\n},\n{\n  "header": "Last Funding Date",\n  "alternate header names": [\n    "Latest Funding Date",\n    "Recent Funding Date",\n    "Final Funding Date",\n    "Most Recent Funding Date",\n    "Newest Funding Date",\n    "Latest Investment Date",\n    "Recent Investment Date",\n    "Final Investment Date",\n    "Most Recent Investment Date",\n    "Newest Investment Date"\n  ],\n  "header description": "The date of the organization\'s last funding round"\n},\n{\n  "header": "Last Funding Amount (in USD)",\n  "alternate header names": [\n    "Latest Funding Amount (in USD)",\n    "Recent Funding Amount (in USD)",\n    "Final Funding Amount (in USD)",\n    "Most Recent Funding Amount (in USD)",\n    "Newest Funding Amount (in USD)",\n    "Latest Investment Amount (in USD)",\n    "Recent Investment Amount (in USD)",\n    "Final Investment Amount (in USD)",\n    "Most Recent Investment Amount (in USD)",\n    "Newest Investment Amount (in USD)"\n  ],\n  "header description": "The amount of the organization\'s last funding round in USD"\n},\n{\n  "header": "Total Funding Amount Currency (in USD)",\n  "alternate header names": [\n    "Cumulative Funding Amount Currency (in USD)",\n    "Aggregate Funding Amount Currency (in USD)",\n    "Accumulated Funding Amount Currency (in USD)",\n    "Combined Funding Amount Currency (in USD)",\n    "Overall Funding Amount Currency (in USD)",\n    "Total Investment Amount Currency (in USD)",\n    "Cumulative Investment Amount Currency (in USD)",\n    "Aggregate Investment Amount Currency (in USD)",\n    "Accumulated Investment Amount Currency (in USD)",\n    "Combined Investment Amount Currency (in USD)"\n  ],\n  "header description": "The total amount of funding the organization has received in USD"\n},\n{\n  "header": "Number of Investors",\n  "alternate header names": [\n    "Investors Count",\n    "Backers Count",\n    "Supporters Count",\n    "Financiers Count",\n    "Contributors Count",\n    "Sponsors Count",\n    "Partners Count",\n    "Stakeholders Count",\n    "Shareholders Count",\n    "Venture Capitalists Count"\n  ],\n  "header description": "The number of investors involved in the organization"\n},\n{\n  "header": "Number of Lead Investors",\n  "alternate header names": [\n    "Lead Investors Count",\n    "Primary Investors Count",\n    "Main Investors Count",\n    "Major Investors Count",\n    "Key Investors Count",\n    "Principal Investors Count",\n    "Top Investors Count",\n    "Main Backers Count",\n    "Primary Backers Count",\n    "Lead Backers Count"\n  ],\n  "header description": "The number of lead investors in the organization"\n},\n{\n  "header": "Top 5 Investors",\n  "alternate header names": [\n    "Main Investors",\n    "Primary Investors",\n    "Lead Investors",\n    "Major Investors",\n    "Key Investors",\n    "Principal Investors",\n    "Top Investors",\n    "Main Backers",\n    "Primary Backers",\n    "Lead Backers"\n  ],\n  "header description": "The top 5 investors in the organization"\n},\n{\n  "header": "Founders",\n  "alternate header names": [\n    "Creators",\n    "Originators",\n    "Initiators",\n    "Pioneers",\n    "Innovators",\n    "Entrepreneurs",\n    "Starters",\n    "Builders",\n    "Co-Founders",\n    "Originating Members"\n  ],\n  "header description": "The founders or creators of the organization"\n},\n{\n  "header": "Last Funding Type",\n  "alternate header names": [\n    "Latest Funding Type",\n    "Recent Funding Type",\n    "Final Funding Type",\n    "Most Recent Funding Type",\n    "Newest Funding Type",\n    "Latest Investment Type",\n    "Recent Investment Type",\n    "Final Investment Type",\n    "Most Recent Investment Type",\n    "Newest Investment Type"\n  ],\n  "header description": "The type of the organization\'s last funding round"\n}'
+
